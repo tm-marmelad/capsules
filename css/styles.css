@@ -131,13 +131,8 @@ p {
     color: #000000;
 }
 
-#p44 {
-    height: 15px;
-    font-family: 'Inter';
-    font-style: normal;
+.active {
     font-weight: 700;
-    font-size: 12px;
-    line-height: 15px;
     color: #FFFFFF;
 }
 

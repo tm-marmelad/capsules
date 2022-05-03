@@ -1,40 +1,56 @@
-alert("javascript подключон");
+// створюємо пустий масив
+const rgb = [];
 
-(function() {
-    (".colors1:nth-child(1)").click(function () {
-        letColor = ["red", "green", "blue"];
-        let hasClass;
+// знаходимо всі елементи з класом .table
+const elements = document.querySelectorAll('.table');
 
-        for (let i = 0; i <= 3; i++) {
-            if (hasClass = (".container").hasClass(letColor[i])) {
-                (".container").removeClass(letColor[i]);
-            }
-        }
-        (".container").addClass("red");
-    });
+// проходимось по кожному елементу масиву
+elements.forEach(el => {
+    const activeElement = el.querySelector('.control.active');
+    
+    const currentNumber = activeElement.innerText;
 
-    (".colors2:nth-child(2)").click(function () {
-        letColor = ["red", "green", "blue"];
-        let hasClass;
+    // додаємо новий елемент в масив
+    
+    rgb.push(currentNumber);
+});
 
-        for (let i = 0; i <= 3; i++) {
-            if (hasClass = (".container").hasClass(letColor[i])) {
-                (".container").removeClass(letColor[i]);
-            }
-        }
-        (".container").addClass("green");
-    });
+// формуємо значення нового кольору:
+// 1. склеюємо елементи масиву
+let newColor = rgb.join('');
+// 2. додаємо на початок елемент #
+newColor = '#' + newColor;
 
-    (".colors3:nth-child(3)").click(function () {
-        letColor = ["red", "green", "blue"];
-        let hasClass;
+// знаходимо елемент з id cloud-path
+const cloudPath = document.querySelector('#cloud-path');
+// міняємо для елементу fill
+cloudPath.style.fill = newColor;
 
-        for (let i = 0; i <= 3; i++) {
-            if (hasClass = (".container").hasClass(letColor[i])) {
-                (".container").removeClass(letColor[i]);
-            }
-        }
-        (".container").addClass("blue");
-    });
 
+
+
+// додаємо click listener
+
+document.querySelector('.capsules').addEventListener('click', function(event) {
+
+    if (event.target.classList.contains('control')) {  
+        const text = event.target.innerText;
+        const index = event.target.dataset.index;
+
+        const tables = document.querySelectorAll('.table');
+        const currentTable = tables[index];
+        const currentTableControls = currentTable.querySelectorAll('.control');
+        currentTableControls.forEach((el) => {
+            el.classList.remove('active');
+        });
+
+        rgb[index] = text;
+
+        let newColor = rgb.join('');
+        newColor = '#' + newColor;
+
+        cloudPath.style.fill = newColor;
+
+        event.target.classList.add('active');
+    }
 });
